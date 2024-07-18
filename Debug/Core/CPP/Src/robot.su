@@ -1,0 +1,7 @@
+../Core/CPP/Src/robot.cpp:10:1:Robot::Robot(float, float, float, uint32_t, RobotPins)	48	static
+../Core/CPP/Src/robot.cpp:35:6:void Robot::updatePid(uint32_t, uint32_t)	48	static
+../Core/CPP/Src/robot.cpp:74:6:void Robot::updateOdometry(int32_t, int32_t)	48	static
+../Core/CPP/Src/robot.cpp:86:6:void Robot::setWheels(float, float)	24	static
+../Core/CPP/Src/robot.cpp:92:6:void Robot::setUnicycle(float, float)	32	static
+../Core/CPP/Src/robot.cpp:114:12:RobotState Robot::getState()	24	static
+../Core/CPP/Src/robot.cpp:118:15:RobotOdometry Robot::getOdometry()	24	static
