@@ -105,11 +105,6 @@ void Robot::setUnicycle(float v, float w)
     setWheels(v_l, v_r);
 }
 
-//void Robot::initPins()
-//{
-//    gpio_init(_status_led_pin);
-//    gpio_set_dir(_status_led_pin, GPIO_OUT);
-//}
 
 RobotState Robot::getState() {
     return _state;

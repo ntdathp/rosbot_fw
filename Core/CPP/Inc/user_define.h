@@ -14,8 +14,8 @@
 
 #define PWM_TIMER    htim4
 
-#define ECODER_TIMER1 htim1
-#define ECODER_TIMER2 htim3
+#define ECODER_TIMER1 htim3
+#define ECODER_TIMER2 htim1
 
 #define UART_COM_INSTANCE huart1.Instance
 #define UART_COM huart1

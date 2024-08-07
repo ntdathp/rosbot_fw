@@ -76,7 +76,23 @@ int fputc(int ch, FILE * f) {
 }
 #endif
 
-char msg[] = "Hello World\r\n";
+void user_init()
+{
+	HAL_TIM_Base_Start_IT(&INTERUPT_TIMER);
+
+	HAL_TIM_PWM_Start(&PWM_TIMER, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&PWM_TIMER, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&PWM_TIMER, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&PWM_TIMER, TIM_CHANNEL_4);
+
+	HAL_TIM_Encoder_Start(&ECODER_TIMER1, TIM_CHANNEL_1);
+	HAL_TIM_Encoder_Start(&ECODER_TIMER1, TIM_CHANNEL_2);
+	HAL_TIM_Encoder_Start(&ECODER_TIMER2, TIM_CHANNEL_1);
+    HAL_TIM_Encoder_Start(&ECODER_TIMER2, TIM_CHANNEL_2);
+
+	HAL_UART_Receive_IT(&UART_COM, &urx, 1);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -118,19 +134,7 @@ int main(void)
   MX_TIM8_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&INTERUPT_TIMER);
-
-  HAL_TIM_PWM_Start(&PWM_TIMER, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&PWM_TIMER, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&PWM_TIMER, TIM_CHANNEL_3);
-  HAL_TIM_PWM_Start(&PWM_TIMER, TIM_CHANNEL_4);
-
-  HAL_TIM_Encoder_Start(&ECODER_TIMER1, TIM_CHANNEL_1);
-  HAL_TIM_Encoder_Start(&ECODER_TIMER1, TIM_CHANNEL_2);
-  HAL_TIM_Encoder_Start(&ECODER_TIMER2, TIM_CHANNEL_1);
-  HAL_TIM_Encoder_Start(&ECODER_TIMER2, TIM_CHANNEL_2);
-
-  HAL_UART_Receive_IT(&UART_COM, &urx, 1);
+  user_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -140,7 +144,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  //HAL_UART_Transmit(&huart1, msg, strlen(msg), HAL_MAX_DELAY);
 	  CppMain();
   }
   /* USER CODE END 3 */

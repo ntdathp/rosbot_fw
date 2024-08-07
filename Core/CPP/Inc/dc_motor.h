@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include "tim.h"
+#include "math.h"
 
 #define TOP 99
 

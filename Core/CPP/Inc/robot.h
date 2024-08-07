@@ -18,8 +18,8 @@
 #define ROBOT_MOTOR_PPR 3960.0f
 #define ROBOT_WHEEL_RADIUS 0.048f
 #define ROBOT_WHEEL_SEPARATION 0.295f
-#define ROBOT_MAX_LINEAR_M_S 0.2
-#define ROBOT_MIN_LINEAR_M_S (-0.2)
+#define ROBOT_MAX_LINEAR_M_S 0.5
+#define ROBOT_MIN_LINEAR_M_S (-0.5)
 #define ROBOT_MAX_ANGULAR_R_S 2.0
 #define ROBOT_MIN_ANGULAR_R_S (-2.0)
 
@@ -95,7 +95,6 @@ private:
     DCMotor _r_motor;
     PID _l_pid;
     PID _r_pid;
-    uint _status_led_pin;
     RobotState _state;
     RobotOdometry _odom;
 

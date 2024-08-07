@@ -3,5 +3,5 @@
 ../Core/CPP/Src/robot.cpp:74:6:void Robot::updateOdometry(int32_t, int32_t)	1
 ../Core/CPP/Src/robot.cpp:86:6:void Robot::setWheels(float, float)	1
 ../Core/CPP/Src/robot.cpp:92:6:void Robot::setUnicycle(float, float)	5
-../Core/CPP/Src/robot.cpp:114:12:RobotState Robot::getState()	1
-../Core/CPP/Src/robot.cpp:118:15:RobotOdometry Robot::getOdometry()	1
+../Core/CPP/Src/robot.cpp:109:12:RobotState Robot::getState()	1
+../Core/CPP/Src/robot.cpp:113:15:RobotOdometry Robot::getOdometry()	1

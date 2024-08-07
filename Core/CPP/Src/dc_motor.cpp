@@ -20,7 +20,7 @@ void DCMotor::write_int16(int16_t pwm)
 {
     if(pwm < 0)
     {
-    	__HAL_TIM_SET_COMPARE(DCMotor::_pwm_tim, DCMotor::_rev_chan, pwm);
+    	__HAL_TIM_SET_COMPARE(DCMotor::_pwm_tim, DCMotor::_rev_chan, abs(pwm));
     	__HAL_TIM_SET_COMPARE(DCMotor::_pwm_tim, DCMotor::_fwd_chan, 0);
     } else
     {

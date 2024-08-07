@@ -1,4 +1,8 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -20,14 +24,14 @@ RobotPins robot_pins = {
 				TIM_CHANNEL_2
         },{
         		&PWM_TIMER,
-        		TIM_CHANNEL_3,
-        		TIM_CHANNEL_4
+        		TIM_CHANNEL_4,
+        		TIM_CHANNEL_3
         }
 };
 
 float kp1 = 0.04;
-float ki1 = 0.01;
-float kd1 = 0;
+float ki1 = 0.1;
+float kd1 = 0.0;
 
 float linear = 0.0;
 float angular = 0;
@@ -50,8 +54,8 @@ void ReadEncoder(){
 	int16_t et1 = ECODER_TIMER1.Instance->CNT;
 	int16_t et2 = ECODER_TIMER2.Instance->CNT;
 
-	encoder1_ticks += et1;
-	encoder2_ticks += et2;
+	encoder1_ticks += (et1);
+	encoder2_ticks += (-et2);
 
 	ECODER_TIMER1.Instance->CNT = 0;
 	ECODER_TIMER2.Instance->CNT = 0;
@@ -78,26 +82,34 @@ void CppMain(){
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	if (huart->Instance == UART_COM_INSTANCE)
-	{
-		if (urx != '\n')
-		{
-			in_buffer[char_idx] = urx;
-			char_idx++;
-		}
-		else
-		{
-			in_buffer[char_idx] = 0;
-			char_idx = 0;
-
-			in_buffer[char_idx] = 0;      // end of string
-			linear = strtof(in_buffer, &ch_ptr);
-			angular = strtof(ch_ptr+1, &ch_ptr2);
-			printState(linear, angular, robot.getState(), robot.getOdometry());
-		}
-	}
-	HAL_UART_Receive_IT(&UART_COM, &urx, 1);
+    if (huart->Instance == UART_COM_INSTANCE)
+    {
+        if (char_idx > 11)
+        {
+            // Clear the buffer and reset char_idx if the index exceeds 11
+            memset(in_buffer, 0, sizeof(in_buffer));
+            char_idx = 0;
+        }
+        else
+        {
+            if (urx != '\n')
+            {
+                in_buffer[char_idx] = urx;
+                char_idx++;
+            }
+            else
+            {
+                in_buffer[char_idx] = 0; // Null-terminate the string
+                char_idx = 0; // Reset the index
+                linear = strtof(in_buffer, &ch_ptr);
+                angular = strtof(ch_ptr + 1, &ch_ptr2);
+                printState(linear, angular, robot.getState(), robot.getOdometry());
+            }
+        }
+    }
+    HAL_UART_Receive_IT(&UART_COM, &urx, 1);
 }
+
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
